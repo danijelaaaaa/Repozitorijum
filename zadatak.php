@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: ubuntu
+ * Date: 10/19/14
+ * Time: 3:29 AM
+ */
 
 class Logger{
 
@@ -14,12 +20,12 @@ class Logger{
 
     public static function getInstance()
     {
-        static $instance = null;
-        if ($instance === null) {
-            $instance = new Logger();
+        
+        if (self::$instance === null) {
+            self::$instance = new Logger();
         }
 
-        return $instance;
+        return self::$instance;
     }
 
 
@@ -133,8 +139,7 @@ class Doktor extends Covjek{
 
     public function zakazivanjePregleda($pacijent, $vrsta)
     {
-        if('krvniPritisak' == $vrsta)
-        {
+        if('krvniPritisak' == $vrsta){
             $pregled = new KrvniPritisak();
         }elseif('secer' == $vrsta){
             $pregled = new Secer();
@@ -158,10 +163,10 @@ class Doktor extends Covjek{
 
     public function obavljanjePregleda($ime, $vrsta)
     {
+	 
         $pronadjen=false;
         foreach ($this->pregledi as &$value) {
-            if($value->getPacijent()->getIme() == $ime && $value->getVrsta()==$vrsta)
-            {
+            if($value->getPacijent()->getIme() == $ime && $value->getVrsta()==$vrsta){
                 $value->izvrsiPregled();
                 $pronadjen = true;
                 break;
@@ -274,10 +279,18 @@ abstract class LaboratorijskiPregled {
     protected $datum;
     protected $vrijeme;
     protected $pacijent;
-    abstract protected function izvrsiPregled();
-
     protected $obavljen;
     protected $vrsta;
+    protected $logger;
+    
+     public function izvrsiPregled()
+    {
+        $this->obavljen = true;
+
+        $this->logger = Logger::getInstance();
+        $this->logger->setLog('Laboratorijski pregled je obavljen ');
+        //echo "Laboratorijski pregled je obavljen \n";
+    }
 
     /**
      * @param mixed $vrsta
@@ -418,13 +431,7 @@ class KrvniPritisak extends LaboratorijskiPregled{
         return $this->puls;
     }
 
-    public function izvrsiPregled()
-    {
-        $this->obavljen = true;
-        $logger = Logger::getInstance();
-        $logger->setLog('Laboratorijski pregled je obavljen ');
-        // echo "Laboratorijski pregled je obavljen \n";
-    }
+    
 
 }
 
@@ -432,6 +439,8 @@ class Secer extends LaboratorijskiPregled{
 
     private $vrijednost;
     private $vrijemePosljednjegObroka;
+
+
 
     /**
      * @param mixed $vrijednost
@@ -466,15 +475,6 @@ class Secer extends LaboratorijskiPregled{
     }
 
 
-    public function izvrsiPregled()
-    {
-
-        $this->obavljen = true;
-        $logger = Logger::getInstance();
-        $logger->setLog('Laboratorijski pregled je obavljen ');
-        //echo "Laboratorijski pregled je obavljen \n";
-
-    }
 }
 
 
@@ -514,15 +514,6 @@ class Holesterol extends LaboratorijskiPregled{
         return $this->vrijemePosljednjegObroka;
     }
 
-
-    public function izvrsiPregled()
-    {
-        $this->obavljen = true;
-
-        $logger = Logger::getInstance();
-        $logger->setLog('Laboratorijski pregled je obavljen ');
-        //echo "Laboratorijski pregled je obavljen \n";
-    }
 }
 
 
@@ -544,7 +535,7 @@ $pregledKrvniPritisak= $milan->zakazivanjePregleda($dragan, 'krvniPritisak');
 
 
 $dragan->getIzabraniDoktor()->obavljanjePregleda($dragan->getIme(),'secer');
-$dragan->getIzabraniDoktor()->obavljanjePregleda($dragan->getIme(),'secer');
+$dragan->getIzabraniDoktor()->obavljanjePregleda($dragan->getIme(),'krvniPritisak');
 
 
 $logger = Logger::getInstance();
