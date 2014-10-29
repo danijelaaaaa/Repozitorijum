@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ubuntu
- * Date: 10/19/14
- * Time: 3:29 AM
- */
+
 
 class Logger{
 
@@ -431,7 +426,15 @@ class KrvniPritisak extends LaboratorijskiPregled{
         return $this->puls;
     }
 
-    
+    public function izvrsiPregled()
+    {
+	$this->gornjaVrijednost= rand(50,250);
+        $this->donjaVrijednost= rand(10,150);
+        $this->puls= rand(30,100);
+	parent::izvrsiPregled();
+	
+	
+    }
 
 }
 
@@ -474,6 +477,14 @@ class Secer extends LaboratorijskiPregled{
         return $this->vrijemePosljednjegObroka;
     }
 
+    public function izvrsiPregled()
+    {
+	$this->vrijednost= rand(1,20);
+	parent::izvrsiPregled();
+	
+	
+    }
+
 
 }
 
@@ -513,6 +524,14 @@ class Holesterol extends LaboratorijskiPregled{
     {
         return $this->vrijemePosljednjegObroka;
     }
+    
+    public function izvrsiPregled()
+    {
+	$this->vrijednost= rand(1,10);
+	parent::izvrsiPregled();
+	
+	
+    }
 
 }
 
@@ -539,7 +558,11 @@ $dragan->getIzabraniDoktor()->obavljanjePregleda($dragan->getIme(),'krvniPritisa
 
 
 $logger = Logger::getInstance();
-var_dump($logger);
+var_dump($logger->getLogs());
+
+
+
+
 
 
 
