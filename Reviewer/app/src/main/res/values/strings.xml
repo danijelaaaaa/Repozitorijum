@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">iReviewer</string>
+    <string name="tags">#fency #tasty #nice #bff</string>
+    <string name="name_content">Some random name</string>
+    <string name="name_value">Name:</string>
+    <string name="street_value">Street:</string>
+    <string name="street_content">Some random street</string>
+    <string name="rating_value">Rating:</string>
+    <string name="tags_value">Tags:</string>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="home">Home</string>
+    <string name="home_long">Map</string>
+    <string name="places">Places</string>
+    <string name="places_long">Places to review</string>
+    <string name="preferences_long">Change your preferences</string>
+    <string name="preferences">Preferences</string>
+    <string name="about_long">Get to know about us</string>
+    <string name="about">About</string>
+    <string name="sync_data_long">Sync data from the repo</string>
+    <string name="sync_data">Sync data</string>
+
+</resources>
